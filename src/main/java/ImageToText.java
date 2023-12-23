@@ -1,10 +1,4 @@
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ImageToText {
 
@@ -12,8 +6,9 @@ public class ImageToText {
 
     /**
      * Converts an image to ASCII characters, looping through the pixels of the
-     * provided imageFilePath and writing the results to the textFilePath
+     * provided BufferedImage and returning the characters as a String
      *
+     * @param image              the image to be converted
      * @param maxCharacterCount  the maximum characters the converter can write
      * @param invertASCIIDensity whether the darker pixels should be represented as
      *                           a dense ASCII character (true) or an empty/small
@@ -51,7 +46,7 @@ public class ImageToText {
     }
 
     /**
-     * This grabs an area of pixels and calculates the average value at the target
+     * This grabs an area of pixels in an image and calculates the average value at the target
      * pixel. This is for compressing the image into a smaller ASCII file. The
      * skipSize is the length of the square used for the area.
      *
@@ -105,11 +100,11 @@ public class ImageToText {
 
         int width = image.getWidth();
         int height = image.getHeight();
-        int area = width * height;
+        // int area = width * height;
 
         int ratio = 1; // the return value
         int count = 0; // loop count
-        int loss; // pixels not accounted for in final result
+        // int loss; // pixels not accounted for in final result
 
         int maxLoops = Math.min(width, height);
 
@@ -121,7 +116,8 @@ public class ImageToText {
 
             // the equation below is complicated, but essentially it measures how many
             // pixels will be lost when generating the ASCII output
-            loss = area - ((width - width % ratio) * (height - height % ratio));
+
+            //loss = area - ((width - width % ratio) * (height - height % ratio));
 
             if (product < maxCharacterCount) {
                 return ratio;
